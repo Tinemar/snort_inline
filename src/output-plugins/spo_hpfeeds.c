@@ -292,7 +292,7 @@ static void AlertHPFeedsInit(struct _SnortConfig *sc, char *args)
 
     AddFuncToCleanExitList(AlertHPFeedsCleanExit, config);
     AddFuncToOutputList(sc, HPFeedsAlert, OUTPUT_TYPE__ALERT, config);
-
+    /*
     if (pthread_create(&thread, NULL, RuleUpdateThread, NULL) != 0)
     {
         LogMessage("Failed to create RuleUPdateThread!\n");
@@ -301,6 +301,7 @@ static void AlertHPFeedsInit(struct _SnortConfig *sc, char *args)
     {
         LogMessage("Successfully created RuleUpdateThread!\n");
     }
+    */
 }
 
 /*
@@ -777,12 +778,12 @@ static void HPFeedsAlert(Packet *p, char *msg, void *arg, Event *event)
 
         file_name = malloc(1000);
         snprintf(file_name, 1000, "%s/%lx%lx%lx%lx.pcap", path, ntohl((uint32_t)(p->iph->ip_src.s_addr)), ntohl((uint32_t)(p->iph->ip_dst.s_addr)), p->pkth->ts.tv_sec, p->pkth->ts.tv_usec);
-
+/*
         if ((rc = log_pcap_file(p, file_name)) == 0)
         {
             json_object_set_new(json_record, "file_path", json_string((char *)(&file_name[10])));
         }
-
+*/
         if (file_name != NULL)
         {
             free(file_name);
@@ -952,7 +953,7 @@ static void HPFeedsAlert(Packet *p, char *msg, void *arg, Event *event)
 
 #endif
 
-    HPFeedsPublish(json_record, config);
+    //HPFeedsPublish(json_record, config);
 
     json_decref(json_record);
 }
