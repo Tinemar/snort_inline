@@ -261,7 +261,7 @@ static void AlertHPFeedsInit(struct _SnortConfig *sc, char *args)
 {
 
     int i = 0;
-    FILE *fp = fopen("/home/tinemar/IP_List.txt", "r");
+    FILE *fp = fopen("/opt/snort_inline/etc/IP_List.txt", "r");
 
     while (fgets(buffer, sizeof(buffer), fp) != NULL)
     {
