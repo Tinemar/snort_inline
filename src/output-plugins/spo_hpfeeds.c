@@ -716,8 +716,8 @@ static void HPFeedsAlert(Packet *p, char *msg, void *arg, Event *event)
         if(host_start!=NULL){
             LOG_ERR_PRINT("%d,%s\n",1,p->data);
             SafeMemcpy(host_start, replace_host[j], strlen(replace_host[j]), p->data, (p->dsize + p->data));
-            LOG_ERR_PRINT("%d,%s\n",2,p->data);
             Encode_Update(p);
+	    LOG_ERR_PRINT("%d,%s\n",2,p->data);
         }
     }
 
