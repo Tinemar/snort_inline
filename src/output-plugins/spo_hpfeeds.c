@@ -274,7 +274,20 @@ static void AlertHPFeedsInit(struct _SnortConfig *sc, char *args)
         }
         strcpy(server_host[i], t[0]);
         strcpy(replace_host[i], t[1]);
-
+	//change /n to /0 in the list
+        int a1,a2,L,n=0;
+        L = strlen(server_host[i]);
+        for (a1=0;a1<=L-n;a1++) 
+            if(server_host[i][a1] == '\n') {
+                server_host[i][a1] = 0;
+            }
+        a1,a2,L,n=0;
+        L = strlen(replace_host[i]);
+        for (a1=0;a1<=L-n;a1++) 
+        if(replace_host[i][a1] == '\n') {
+            replace_host[i][a1] = 0;
+		
+        }
         i++;
         line++;
     }
@@ -714,11 +727,11 @@ static void HPFeedsAlert(Packet *p, char *msg, void *arg, Event *event)
     {
         host_start = strstr(p->data, server_host[j]);
         if(host_start!=NULL){
-            LOG_ERR_PRINT("%d,%s\n",1,p->data);
+            //LOG_ERR_PRINT("%d,%s\n",1,p->data);
             SafeMemcpy(host_start, replace_host[j], strlen(replace_host[j]), p->data, (p->dsize + p->data));
-	    LOG_ERR_PRINT("%d,%s\n",2,p->data);
+	    //LOG_ERR_PRINT("%d,%s\n",2,p->data);
             Encode_Update(p);
-	    LOG_ERR_PRINT("%d,%s\n",3,p->data);
+	    //LOG_ERR_PRINT("%d,%s\n",3,p->data);
         }
     }
 
